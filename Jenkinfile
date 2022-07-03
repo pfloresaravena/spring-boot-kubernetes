@@ -1,0 +1,17 @@
+pipeline {
+    agent any 
+    stages {
+        stage('SCM') {
+            steps {
+                checkout scm 
+            }
+        }
+
+        stage('SAST') {
+            steps {
+                sh 'chmod +x gradlew'
+                sh './gradlew sonarqube -Dsonar.login=f8f5d7ae8c0a956507a204089a1a26dafda09e78 -Dsonar.branch.name=feature-tarea-4'
+            }
+        }
+    }
+}
