@@ -1,5 +1,8 @@
 pipeline {
-    agent any 
+    agent any
+    environment{
+        SONAR_SCANNER = tool 'SonarScanner'
+    }
     stages {
         stage('SCM') {
             steps {
@@ -9,7 +12,13 @@ pipeline {
 
         stage('SAST') {
             steps {
-                sh './gradlew sonarqube -Dsonar.login=f8f5d7ae8c0a956507a204089a1a26dafda09e78 -Dsonar.branch.name=feature-tarea-4'
+                echo "Analizando código estático"
+                withSonarQubeEnv('sonarqube-server'){
+                    sh "${SONAR_SCANNER}/bin/sonar-scanner -Dproject.settings=jenkins/sonar.properties"
+                }
+                timeout(time: 3, unit: 'MINUTES'){
+                waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
