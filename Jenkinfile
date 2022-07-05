@@ -14,7 +14,7 @@ pipeline {
             steps {
                 echo "Analizando código estático"
                  withSonarQubeEnv() { // Will pick the global server connection you have configured
-                  sh './gradlew sonarqube'
+                  sh 'mvn clean deploy sonar:sonar'
                 }
             }
         }
