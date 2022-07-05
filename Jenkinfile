@@ -13,7 +13,7 @@ pipeline {
         stage('SAST') {
             steps {
                 echo "Analizando código estático"
-                 withSonarQubeEnv() { // Will pick the global server connection you have configured
+                 withSonarQubeEnv('sonarqube-server') { // Will pick the global server connection you have configured
                   sh 'mvn clean deploy sonar:sonar'
                 }
             }
