@@ -13,12 +13,7 @@ pipeline {
         stage('SAST') {
             steps {
                 echo "Analizando código estático"
-                withSonarQubeEnv(){
-                    sh "./gradlew sonarqube"
-                }
-                timeout(time: 3, unit: 'MINUTES'){
-                waitForQualityGate abortPipeline: true
-                }
+                 sh "mvn clean package sonar:sonar"
             }
         }
     }
