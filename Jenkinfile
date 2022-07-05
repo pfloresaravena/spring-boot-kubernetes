@@ -14,7 +14,9 @@ pipeline {
             steps {
                 echo "Analizando código estático"
                  withSonarQubeEnv('sonarqube-server') { // Will pick the global server connection you have configured
-                  sh 'mvn clean deploy sonar:sonar'
+                    withMaven(maven:'Maven 3.5') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
                 }
             }
         }
