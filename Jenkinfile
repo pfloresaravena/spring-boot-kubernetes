@@ -38,9 +38,9 @@ pipeline {
         
         stage("SCA"){
             steps {
-                //sh "set +x;./mvnw dependencyCheckAnalyze"
                 sh 'set +x;./mvnw org.owasp:dependency-check-maven:purge'
                 sh 'set +x;./mvnw org.owasp:dependency-check-maven:check'
+                archiveArtifacts artifacts: 'target/dependency-check-report.html', followSymlinks: false
             }
         }
         
