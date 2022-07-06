@@ -10,6 +10,14 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                sh 'set +x; chmod 777 mvnw'
+                sh './mvnw clean package'
+            }
+        }
+
+
         stage('SAST') {
             steps {
                 echo "Analizando código estático"
