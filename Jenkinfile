@@ -11,14 +11,13 @@ pipeline {
         }
 
         stage('SAST') {
-            steps {
                 echo "Analizando código estático"
-                 withSonarQubeEnv('sonarqube-server') { // Will pick the global server connection you have configured
-                    withMaven(maven:'Maven 3.5') {
-                        sh 'mvn clean package sonar:sonar'
-                    }
+                withSonarQubeEnv('sonarqube-server'){
+                    sh "${SONAR_SCANNER}/bin/sonar-scanner -Dsonar.projectKey=develop"
                 }
-            }
+                timeout(time: 3, unit: 'MINUTES'){
+                waitForQualityGate abortPipeline: true
+                }
         }
     }
 }
