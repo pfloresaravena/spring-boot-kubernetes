@@ -36,5 +36,12 @@ pipeline {
             }
         }
         
+        stage("SCA"){
+            steps {
+                sh "chmod +x gradlew"
+                sh "./gradlew dependencyCheckAnalyze"
+            }
+        }
+        
     }
 }
