@@ -14,7 +14,7 @@ pipeline {
             steps {
                 echo "Analizando código estático"
                 withSonarQubeEnv('sonarqube-server'){
-                    sh "set +x;./mvnw sonar:sonar"
+                    sh "set +x;./mvn sonar:sonar"
                 }
                 
             }
