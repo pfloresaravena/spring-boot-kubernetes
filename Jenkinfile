@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo "Analizando código estático"
                 withSonarQubeEnv('sonarqube-server'){
-                    sh "set +x;./mvnw sonar:sonar -Dsonar.branch.name=feature-tarea-4"
+                    sh "set +x;./mvnw sonar:sonar"
                 }
                 
             }
